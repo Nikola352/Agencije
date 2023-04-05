@@ -13,7 +13,10 @@ export default {
                 500: "#FA7921",
                 700: "#FA5521"
             } ,
-            secondary: "#616163",
+            secondary:{
+                400: "#616163",
+                600: "#3A3A3B"
+            },
             accent: "#5ADBFF",
             success: "#7FB069",
             error: "#FF5A5F"
