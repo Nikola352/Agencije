@@ -17,6 +17,7 @@ export default {
                 400: "#616163",
                 600: "#3A3A3B"
             },
+            backdrop: "#3A3A3B88",
             accent: "#5ADBFF",
             success: "#7FB069",
             error: "#FF5A5F"
