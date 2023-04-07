@@ -8,6 +8,7 @@ import { getDatabase } from "firebase/database"
 const firebaseConfig = {
   apiKey: "AIzaSyDAu_1oLHsGTKG2sg0v406Hzu9O3h8UC-g",
   authDomain: "agencije-wd-2023.firebaseapp.com",
+  databaseURL: "https://agencije-wd-2023-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "agencije-wd-2023",
   storageBucket: "agencije-wd-2023.appspot.com",
   messagingSenderId: "898004202101",
