@@ -2,28 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn {
-    @apply p-2 border-primary-500 border-2 rounded-lg font-bold text-white
-        hover:bg-primary-500 duration-200 active:bg-primary-700;
+@layer components {
+    .btn {
+        @apply p-2 border-primary-500 border-2 rounded-lg font-bold text-white
+            hover:bg-primary-500 duration-200 active:bg-primary-700;
+    }
+    
+    .btn-primary{
+        @apply btn [&:not(:active)]:bg-gradient-to-tr from-primary-500 via-primary-500 active:bg-primary-700;
+    }
+    
+    .card{
+        @apply relative w-full h-full overflow-hidden rounded-lg shadow-sm hover:shadow-md shadow-black hover:shadow-secondary-600 ;
+    }
+    
+    .clickable-shadow{
+        @apply shadow-black [text-shadow:_0_1px_0_var(--tw-shadow-color)] hover:[text-shadow:_0_2px_0_var(--tw-shadow-color)];
+    }
+    
+    .fancy-underline{
+        @apply relative no-underline inline-block -z-10
+            after:absolute after:bottom-[-0.4em] after:left-0 after:right-0 after:h-[0.25em] after:bg-primary-500
+            before:absolute before:bottom-0 before:w-[1.2em] before:right-[-0.95em] before:h-[0.25em] before:bg-primary-500 before:-rotate-45
+    }
 }
 
-.btn-primary{
-    @apply btn [&:not(:active)]:bg-gradient-to-tr from-primary-500 via-primary-500 active:bg-primary-700;
-}
-
-.card{
-    @apply relative w-full h-full overflow-hidden rounded-lg shadow-sm hover:shadow-md shadow-black hover:shadow-secondary-600 ;
-}
-
-.clickable-shadow{
-    @apply shadow-black [text-shadow:_0_1px_0_var(--tw-shadow-color)] hover:[text-shadow:_0_2px_0_var(--tw-shadow-color)];
-}
-
-.fancy-underline{
-    @apply relative no-underline inline-block -z-10
-        after:absolute after:bottom-[-0.4em] after:left-0 after:right-0 after:h-[0.25em] after:bg-primary-500
-        before:absolute before:bottom-0 before:w-[1.2em] before:right-[-0.95em] before:h-[0.25em] before:bg-primary-500 before:-rotate-45
-}
 
 /* .fancy-underline::after{
     content: "";
