@@ -1,22 +1,55 @@
 import { Link } from 'react-router-dom';
-import { Agencija } from '../data/Agencija';
+import { AgencijaHomepage } from '../data/Agencija';
+import { Popover, PopoverContent, PopoverTrigger } from './Popover';
 
 type AgencijaCardProps = {
-    agencija: Agencija
-    id: string
+    agencija: AgencijaHomepage
 }
 
-const AgencijaCard = ({agencija, id}: AgencijaCardProps) => {
+const AgencijaCard = ({agencija}: AgencijaCardProps) => {
+    let destinationFilterOn = false;
+
     return ( 
         <div className='card'>
             <figure className='relative w-full h-full overflow-hidden'>
                 <img src={agencija.logo} alt="logo" className="relative h-full w-full object-cover" />
-                <Link to={`agencija/${id}`} className="absolute left-0 bottom-0 m-4">
+                <Link to={`agencija/${agencija.id}`} className="absolute left-0 bottom-0 m-4">
                     <h2 className='text-2xl sm:text-3xl font-bold text-white hover:text-primary-500 clickable-shadow'>
                         {agencija.naziv}
                     </h2>
                 </Link>
             </figure>
+            <Popover>
+                <PopoverTrigger className='absolute top-0 right-0'>
+                    <button className='btn-primary text-sm rounded-br-none rounded-tl-none border-none'>
+                        <span>Destinacije</span>
+                        {destinationFilterOn && (
+                            <span className='animate-ping absolute left-0 bottom-0 h-3 w-3 rounded-full bg-sky-400 opacity-75'></span>
+                        )}
+                        {destinationFilterOn && (
+                            <span className="absolute left-0 bottom-0 rounded-full h-3 w-3 bg-sky-500"></span>
+                        )}
+                        
+                    </button>
+                </PopoverTrigger>
+                <PopoverContent>
+                    <div className='p-4 pr-12 bg-secondary-600 rounded-lg'>
+                        <ul>
+                            {agencija.destinacijeList.map(([id, dest], idx) => {
+                                return (
+                                    <li key={idx} className='m-2'>
+                                        <Link to={`destinacija/${agencija.destinacijeID}/${id}`}
+                                            className="text-lg hover:text-white text-primary-300 font-semibold"
+                                        >
+                                            { dest.naziv }        
+                                        </Link>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                </PopoverContent>
+            </Popover>
         </div>
     );
 }

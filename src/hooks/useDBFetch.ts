@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { get, ref } from "firebase/database";
 
-const useDBFetch = <T>(dbpath: string) => {  
+type DBFetchReturn<T> = {
+    data: T | null;
+    isPending: boolean;
+    error: string | null;
+}
+
+const useDBFetch = <T>(dbpath: string): DBFetchReturn<T> => {  
     const [data, setData] = useState<T|null>(null);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState<string|null>(null);
