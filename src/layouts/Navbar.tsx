@@ -18,15 +18,15 @@ const Navbar = () => {
     }, []);
 
     return ( 
-        <div id="Navbar" className="fixed">
-            <nav id="topbar" className="fixed flex justify-end items-center h-12 sm:h-16 bg-secondary-600 w-full text-white p-2 z-10">
+        <div id="Navbar">
+            <nav id="topbar" className="sticky flex justify-end items-center h-12 sm:h-16 bg-secondary-600 w-full text-white p-2 z-10">
                 <Link to="/" className="mr-auto" onClick={() => setMenuActive(false)}>
                     <img src={logo_horizontal} alt="logo" className="sm:h-10 h-8" />
                 </Link>
 
-                {width >= breakpoint && (<Link to="/admin" className="btn mx-2">Admin</Link>)}
-                {width >= breakpoint && (<button className="btn-primary mx-2">Prijava</button>)}
-                {width >= breakpoint && (<button className="btn-primary mx-2">Registracija</button>)}
+                {width >= breakpoint && (<Link to="/admin" className="btn m-2">Admin</Link>)}
+                {width >= breakpoint && (<button className="btn-primary m-2">Prijava</button>)}
+                {width >= breakpoint && (<button className="btn-primary m-2">Registracija</button>)}
 
                 {/* menu button opens navigation drawer on smaller screens */}
                 { width < breakpoint && (
