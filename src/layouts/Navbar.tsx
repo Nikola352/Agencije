@@ -3,33 +3,27 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import logo_horizontal from '../assets/logo-horizontal.png'
 import menu_icon from '../assets/menu-icon-primary.svg'
+import useRenderOnScreenSize from "../hooks/useRenderOnScreenSize";
 
 const Navbar = () => {
 
-    const [width, setWidth] = useState(window.innerWidth);
-    const breakpoint = 640;
+    const smScreen = useRenderOnScreenSize(640);
 
     const [menuActive, setMenuActive] = useState(false);
 
-    useEffect(() => {
-        const handleWindowResize = () => setWidth(window.innerWidth);
-        window.addEventListener("resize", handleWindowResize);
-        return () => window.removeEventListener("resize", handleWindowResize);
-    }, []);
-
     return ( 
         <div id="Navbar" className="fixed">
-            <nav id="topbar" className="fixed flex justify-end items-center h-12 sm:h-16 bg-secondary-600 w-full text-white p-2 z-10">
+            <nav id="topbar" className="fixed flex justify-end items-center h-12 sm:h-16 bg-secondary-600 w-full text-white p-2 z-50">
                 <Link to="/" className="mr-auto" onClick={() => setMenuActive(false)}>
                     <img src={logo_horizontal} alt="logo" className="sm:h-10 h-8" />
                 </Link>
 
-                {width >= breakpoint && (<Link to="/admin" className="btn mx-2">Admin</Link>)}
-                {width >= breakpoint && (<button className="btn-primary mx-2">Prijava</button>)}
-                {width >= breakpoint && (<button className="btn-primary mx-2">Registracija</button>)}
+                {smScreen && (<Link to="/admin" className="btn mx-2">Admin</Link>)}
+                {smScreen && (<button className="btn-primary mx-2">Prijava</button>)}
+                {smScreen && (<button className="btn-primary mx-2">Registracija</button>)}
 
                 {/* menu button opens navigation drawer on smaller screens */}
-                { width < breakpoint && (
+                { !smScreen && (
                     <motion.img src={menu_icon} className="sm:h-10 h-8" 
                         onClick={() => setMenuActive(!menuActive)}
                         animate={{rotate: menuActive ? 90 : 0}}
@@ -39,7 +33,7 @@ const Navbar = () => {
 
                 {/* navigation drawer with animations */}
                 <AnimatePresence>
-                { width < breakpoint && menuActive && (
+                { !smScreen && menuActive && (
                     <motion.div 
                         id="nav-drawer"
                         initial={{height: 0}}
@@ -99,7 +93,7 @@ const Navbar = () => {
             </nav>
             
             {/* inactive background overlay */}
-            {width < breakpoint && menuActive && (
+            {!smScreen && menuActive && (
                 <div 
                     className="fixed top-0 bottom-0 left-0 right-0 bg-backdrop"
                     onClick={() => setMenuActive(!menuActive)}
