@@ -10,3 +10,38 @@
 .btn-primary{
     @apply btn [&:not(:active)]:bg-gradient-to-tr from-primary-500 via-primary-500 active:bg-primary-700;
 }
+
+.card{
+    @apply relative w-full h-full overflow-hidden rounded-lg shadow-sm hover:shadow-md shadow-black hover:shadow-secondary-600 ;
+}
+
+.clickable-shadow{
+    @apply shadow-black [text-shadow:_0_1px_0_var(--tw-shadow-color)] hover:[text-shadow:_0_2px_0_var(--tw-shadow-color)];
+}
+
+.fancy-underline{
+    @apply relative no-underline inline-block -z-10
+        after:absolute after:bottom-[-0.4em] after:left-0 after:right-0 after:h-[0.25em] after:bg-primary-500
+        before:absolute before:bottom-0 before:w-[1.2em] before:right-[-0.95em] before:h-[0.25em] before:bg-primary-500 before:-rotate-45
+}
+
+/* .fancy-underline::after{
+    content: "";
+    position: absolute;
+    bottom: -0.4em;
+    left: 0;
+    right: 0;
+    height: 0.25em;
+    background-color: rgb(250 121 33);
+}
+
+.fancy-underline::before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 1.2em;
+    right: -0.95em;
+    height: 0.25em;
+    background-color: rgb(250 121 33);
+    transform: rotate(-45deg);
+} */
