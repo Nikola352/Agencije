@@ -10,7 +10,7 @@ function App() {
 
             <div className='h-10 sm:h-12'></div>
 
-            <div className="content p-4">
+            <div className="content p-4 -z-10">
                 <Routes>
                     <Route path='/' element={Home()} />
                 </Routes>
