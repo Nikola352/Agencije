@@ -12,8 +12,8 @@ const Navbar = () => {
     const [menuActive, setMenuActive] = useState(false);
 
     return ( 
-        <div id="Navbar" className="fixed">
-            <nav id="topbar" className="fixed flex justify-end items-center h-12 sm:h-16 bg-secondary-600 w-full text-white p-2 z-50">
+        <div id="Navbar" className="fixed w-full z-10">
+            <nav id="topbar" className="fixed flex justify-end items-center h-12 sm:h-16 bg-secondary-600 w-full text-white p-2 z-10">
                 <Link to="/" className="mr-auto" onClick={() => setMenuActive(false)}>
                     <img src={logo_horizontal} alt="logo" className="sm:h-10 h-8" />
                 </Link>
