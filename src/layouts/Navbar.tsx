@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import logo_horizontal from '../assets/logo-horizontal.png'
-import menu_icon from '../assets/menu-icon-primary.svg'
+import logo_horizontal from '../assets/logo/logo-horizontal.png'
+import menu_icon from '../assets/icons/menu-icon-primary.svg'
 import useRenderOnScreenSize from "../hooks/useRenderOnScreenSize";
 
 const Navbar = () => {
