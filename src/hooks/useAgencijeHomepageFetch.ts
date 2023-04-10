@@ -13,6 +13,7 @@ const useAgencijeHomepageFetch = () : AgencijeHomepageFetchReturn => {
     const [data, setData] = useState<AgencijaHomepage[] | null>(null);
     const [error, setError] = useState<string|null>(null);
     const [isPending, setIsPending] = useState(true);
+    const [isDestinacijeLoaded, setIsDestinacijeLoaded] = useState(false);
 
     const {data: agencije, error: errA, isPending: ipa} = useDBFetch<{[key:string]: Agencija;}>("agencije");
 
@@ -23,7 +24,7 @@ const useAgencijeHomepageFetch = () : AgencijeHomepageFetchReturn => {
             setError(errA);
             setIsPending(false);
         }
-        else 
+        else if(agencije)
         {
             let res = [] as AgencijaHomepage[]
         
@@ -45,7 +46,15 @@ const useAgencijeHomepageFetch = () : AgencijeHomepageFetchReturn => {
     }, [agencije, errA, ipa]);  
     
     useEffect(() => {
-        if(data){
+        if(data && agencije && destinacije && !errD){
+            const allDestinacijeLoaded = data.every(ag => ag.destinacijeID in destinacije );
+            if(allDestinacijeLoaded)
+                setIsDestinacijeLoaded(true);
+        }
+    }, [data, agencije, destinacije, errD]);
+
+    useEffect(() => {
+        if(data && isDestinacijeLoaded){
             for(let currAg of data){
                 if(!errD && destinacije && currAg.destinacijeID in destinacije){
                     currAg.destinacijeList = Object.entries(destinacije[currAg.destinacijeID]);
@@ -53,7 +62,7 @@ const useAgencijeHomepageFetch = () : AgencijeHomepageFetchReturn => {
             }
             setData(data);
         }
-    }, [destinacije, errD, ipd]);
+    }, [isDestinacijeLoaded, data]);
     
     return {data, error, isPending};
 }
