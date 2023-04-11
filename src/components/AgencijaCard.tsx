@@ -14,7 +14,7 @@ const AgencijaCard = ({agencija}: AgencijaCardProps) => {
             <figure className='relative w-full h-full overflow-hidden'>
                 <img src={agencija.logo} alt="logo" className="relative h-full w-full object-cover" />
                 <Link to={`agencija/${agencija.id}`} className="absolute left-0 bottom-0 m-4">
-                    <h2 className='text-2xl sm:text-3xl font-bold text-white hover:text-primary-500 clickable-shadow'>
+                    <h2 className='text-3xl sm:text-4xl font-bold text-white hover:text-primary-500 clickable-shadow'>
                         {agencija.naziv}
                     </h2>
                 </Link>
