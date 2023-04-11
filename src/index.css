@@ -13,7 +13,8 @@
     }
     
     .card{
-        @apply relative w-full h-full overflow-hidden rounded-lg shadow-sm hover:shadow-md shadow-black hover:shadow-secondary-600 ;
+        @apply relative w-full h-full overflow-hidden rounded-lg shadow-sm hover:shadow-lg shadow-black 
+            hover:shadow-secondary-600 hover:scale-[103%];
     }
     
     .clickable-shadow{
