@@ -1,14 +1,31 @@
 import AgencijaCard from '../components/AgencijaCard';
 import useRenderOnScreenSize from "../hooks/useRenderOnScreenSize";
-import useAgencijeHomepageFetch from "../hooks/useAgencijeHomepageFetch";
+import { useContext } from 'react';
+import { SearchBarContextType } from '../data/SearchBarTypes';
+import { AgencijaHomepage } from '../data/Agencija';
+import { SearchBarProvider, AgencijaHomepageContext } from '../data/SearchBarContext';
+import SearchBar from '../components/SearchBar';
 
-const Home = () => {
-    const {data: agencije, error, isPending} = useAgencijeHomepageFetch();
+const HomeChild = () => {
+    const { filteredData: agencije, error, isPending, filterActive } = useContext(AgencijaHomepageContext) as SearchBarContextType<AgencijaHomepage>;
 
     const smScreen = useRenderOnScreenSize(640);
 
     return (
         <div className="Home md:mx-auto">
+
+            <SearchBar
+                searchBarType="AgencijaHomepage"
+                options={{
+                    searchFields: [
+                        'naziv',
+                        'destinacijeList.1.naziv'
+                    ],
+                    selectFields: []
+                }}
+                placeholder="Pretražite agencije ili destinacije..."
+            ></SearchBar>
+
             {smScreen && (
                 <h1 className="text-primary-500 text-xl sm:text-2xl fancy-underline m-10 mt-4">
                     Turističke agencije
@@ -34,11 +51,20 @@ const Home = () => {
                         </div>
                     ))}
                 </div>
-            ): (
-                <p>Trenutno nema dostupnih agencija.</p>
+            ) : (
+                <p className='text-secondary-600 text-lg text-center'>Trenutno nema dostupnih agencija{filterActive ? ' koje odgovaraju pretrazi': ''}.</p>
             )}
         </div>
-     );
+    );
 }
- 
+
+const Home = () => {
+    return (
+        <SearchBarProvider<AgencijaHomepage> searchBarType="AgencijaHomepage">
+            <HomeChild />
+        </SearchBarProvider>
+    )
+}
+
+
 export default Home;
