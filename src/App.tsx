@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './layouts/Navbar'
 import { UserProvider } from './data/UserContext'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
                 <div className="content p-4 -z-10">
                     <Routes>
                         <Route path='/' element={Home()} />
+                        <Route path='*' element={NotFound()} />
                     </Routes>
                 </div>
 
