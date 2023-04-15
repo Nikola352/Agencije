@@ -1,15 +1,20 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import logo_horizontal from '../assets/logo/logo-horizontal.png'
 import menu_icon from '../assets/icons/menu-icon-primary.svg'
 import useRenderOnScreenSize from "../hooks/useRenderOnScreenSize";
+import LogIn from "./LogIn";
+import SignUp from "./SignUp";
+import { UserContext, UserContextType } from "../data/UserContext";
 
 const Navbar = () => {
-
     const smScreen = useRenderOnScreenSize(640);
-
     const [menuActive, setMenuActive] = useState(false);
+
+    const {currentUser, logout} = useContext(UserContext) as UserContextType;
+    const [loginOpen, setLoginOpen] = useState(false);
+    const [signupOpen, setSignupOpen] = useState(false);
 
     return ( 
         <div id="Navbar" className="fixed w-full z-10">
@@ -18,9 +23,26 @@ const Navbar = () => {
                     <img src={logo_horizontal} alt="logo" className="sm:h-10 h-8" />
                 </Link>
 
-                {smScreen && (<Link to="/admin" className="btn mx-2">Admin</Link>)}
-                {smScreen && (<button className="btn-primary mx-2">Prijava</button>)}
-                {smScreen && (<button className="btn-primary mx-2">Registracija</button>)}
+                {smScreen && (<Link to="/admin" className="mx-2">
+                    <button disabled className="btn">Admin</button>
+                </Link>)}
+                
+                {smScreen && !currentUser && (
+                    <LogIn 
+                        open={loginOpen} setOpen={setLoginOpen} 
+                        switchToSignUp={() => {setSignupOpen(true)}} 
+                        className="btn-primary mx-2"
+                    ></LogIn>
+                )}
+                {smScreen && !currentUser && (
+                    <SignUp 
+                        open={signupOpen} setOpen={setSignupOpen} 
+                        switchToLogIn={() => {setLoginOpen(true)}} 
+                        className="btn-primary mx-2"
+                    ></SignUp>
+                )}
+
+                {smScreen && currentUser && (<button className="btn-primary mx-2" onClick={logout}>Log out</button>)}
 
                 {/* menu button opens navigation drawer on smaller screens */}
                 { !smScreen && (
@@ -67,25 +89,49 @@ const Navbar = () => {
                             >Admin</Link>
                         </motion.div>
 
-                        <motion.div 
-                            initial={{ x: -100, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ duration: 0.1, delay: 0.15 }}
-                            exit={{ x: -100, opacity: 0, transition: {duration: 0.1, delay: 0.05}}}
-                            className="w-3/4 m-4"
-                        >
-                            <button className="btn-primary w-full">Prijava</button>
-                        </motion.div>
+                        {!currentUser && (
+                            <motion.div 
+                                initial={{ x: -100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.1, delay: 0.15 }}
+                                exit={{ x: -100, opacity: 0, transition: {duration: 0.1, delay: 0.05}}}
+                                className="w-3/4 m-4"
+                            >
+                                <LogIn 
+                                    open={loginOpen} setOpen={setLoginOpen} 
+                                    switchToSignUp={() => {setSignupOpen(true)}} 
+                                    className="btn-primary w-full"
+                                ></LogIn>
+                            </motion.div>
+                        )}
 
-                        <motion.div 
-                            initial={{ x: -100, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ duration: 0.1, delay: 0.2 }}
-                            exit={{ x: -100, opacity: 0, transition: {duration: 0.1}}}
-                            className="w-3/4 m-4 mb-8"
-                        >
-                            <button className="btn-primary w-full">Registracija</button>
-                        </motion.div>
+                        {!currentUser && (
+                            <motion.div 
+                                initial={{ x: -100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.1, delay: 0.2 }}
+                                exit={{ x: -100, opacity: 0, transition: {duration: 0.1}}}
+                                className="w-3/4 m-4 mb-8"
+                            >
+                                <SignUp 
+                                    open={signupOpen} setOpen={setSignupOpen} 
+                                    switchToLogIn={() => {setLoginOpen(true)}} 
+                                    className="btn-primary w-full"
+                                ></SignUp>
+                            </motion.div>
+                        )}
+
+                        {currentUser && (
+                            <motion.div 
+                                initial={{ x: -100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.1, delay: 0.15 }}
+                                exit={{ x: -100, opacity: 0, transition: {duration: 0.1, delay: 0.05}}}
+                                className="w-3/4 m-4 mb-8"
+                            >
+                                <button className="btn-primary w-full" onClick={logout}>Log out</button>
+                            </motion.div>
+                        )}
                     </motion.div>
                 )}
                 </AnimatePresence>
