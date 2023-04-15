@@ -72,7 +72,7 @@ function SearchBar<T>({options, searchBarType, placeholder}: SearchBarProps<T>){
             className="w-full pb-8 xs:px-4 sm:p-8 lg:px-16 xl:px-24 flex justify-end placeholder:text-secondary-400"
         >
             <input 
-                type="text" name="search-query" 
+                type="search" name="search-query" 
                 placeholder={placeholder}
                 value={searchQuery} 
                 onChange={(e) => setSearchQuery(e.target.value)} 
