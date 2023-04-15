@@ -22,7 +22,7 @@
     }
     
     .fancy-underline{
-        @apply relative no-underline inline-block -z-10
+        @apply relative no-underline inline-block
             after:absolute after:bottom-[-0.4em] after:left-0 after:right-0 after:h-[0.25em] after:bg-primary-500
             before:absolute before:bottom-0 before:w-[1.2em] before:right-[-0.95em] before:h-[0.25em] before:bg-primary-500 before:-rotate-45
     }

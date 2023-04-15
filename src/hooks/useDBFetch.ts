@@ -6,6 +6,7 @@ type DBFetchReturn<T> = {
     data: T | null;
     isPending: boolean;
     error: string | null;
+    setData: React.Dispatch<React.SetStateAction<T | null>>; // for changing data after initial load
 }
 
 const useDBFetch = <T>(dbpath: string): DBFetchReturn<T> => {  
@@ -32,7 +33,7 @@ const useDBFetch = <T>(dbpath: string): DBFetchReturn<T> => {
         fetchData();
     }, [dbpath]);
 
-    return { data, isPending, error }
+    return { data, isPending, error, setData }
 }
 
 export default useDBFetch;
