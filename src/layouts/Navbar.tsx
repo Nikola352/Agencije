@@ -23,9 +23,7 @@ const Navbar = () => {
                     <img src={logo_horizontal} alt="logo" className="sm:h-10 h-8" />
                 </Link>
 
-                {smScreen && (<Link to="/admin" className="mx-2">
-                    <button disabled className="btn">Admin</button>
-                </Link>)}
+                {smScreen && (<Link to="/admin" className="btn mx-2">Admin</Link>)}
                 
                 {smScreen && !currentUser && (
                     <LogIn 
