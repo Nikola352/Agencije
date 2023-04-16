@@ -25,3 +25,6 @@ dist-ssr
 
 # json data for firebase
 podaci_agencije.json
+
+.firebase
+TODO.txt
