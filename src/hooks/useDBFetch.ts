@@ -9,13 +9,18 @@ type DBFetchReturn<T> = {
     setData: React.Dispatch<React.SetStateAction<T | null>>; // for changing data after initial load
 }
 
-const useDBFetch = <T>(dbpath: string): DBFetchReturn<T> => {  
+const useDBFetch = <T>(dbpath: string, dependencies?: unknown[]): DBFetchReturn<T> => {  
     const [data, setData] = useState<T|null>(null);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState<string|null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
+            if(dependencies){
+                for(let dep of dependencies){
+                    if(!dep) return;
+                }
+            }
             try{
                 const snapshot = await get(ref(db, dbpath));
                 if(snapshot.exists()){
@@ -31,7 +36,7 @@ const useDBFetch = <T>(dbpath: string): DBFetchReturn<T> => {
             }
         }
         fetchData();
-    }, [dbpath]);
+    }, dependencies ? [...dependencies, dbpath] : [dbpath]);
 
     return { data, isPending, error, setData }
 }
