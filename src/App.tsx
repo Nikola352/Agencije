@@ -4,6 +4,7 @@ import Navbar from './layouts/Navbar'
 import { UserProvider } from './data/UserContext'
 import NotFound from './pages/NotFound'
 import AgencijaPage from './pages/AgencijaPage'
+import Footer from './layouts/Footer'
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
                     </Routes>
                 </main>
 
+                <div className='h-10 sm:h-12 mt-4'></div>
+                
+                <Footer />
             </div>
         </UserProvider>
     </Router>
