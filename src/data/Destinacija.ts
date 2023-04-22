@@ -7,3 +7,12 @@ export interface Destinacija{
     tip: "Letovanje" | "Zimovanje" | "Gradovi Evrope";
     slike: string[];
 };
+
+export interface DestinacijaSB{
+    id: string;
+    cena: number;
+    naziv: string;
+    prevoz: "autobus" | "avion" | "sopstveni";
+    tip: "Letovanje" | "Zimovanje" | "Gradovi Evrope";
+    thumbnail: string;
+}

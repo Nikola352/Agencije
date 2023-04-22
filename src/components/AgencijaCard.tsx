@@ -11,14 +11,14 @@ const AgencijaCard = ({agencija}: AgencijaCardProps) => {
 
     return ( 
         <div className='card'>
-            <figure className='relative w-full h-full overflow-hidden'>
-                <img src={agencija.logo} alt="logo" className="relative h-full w-full object-cover" />
-                <Link to={`agencija/${agencija.id}`} className="absolute left-0 bottom-0 m-4">
-                    <h2 className='text-3xl sm:text-4xl font-bold text-white hover:text-primary-500 clickable-shadow'>
-                        {agencija.naziv}
-                    </h2>
-                </Link>
-            </figure>
+            <Link to={`agencija/${agencija.id}`} className="">
+                <figure className='relative w-full h-full overflow-hidden'>
+                    <img src={agencija.logo} alt="logo" className="relative h-full w-full object-cover" />
+                        <h2 className='absolute left-0 bottom-0 m-4 text-3xl sm:text-4xl font-bold text-white hover:text-primary-500 clickable-shadow'>
+                            {agencija.naziv}
+                        </h2>
+                </figure>
+            </Link>            
             <Popover>
                 <PopoverTrigger className='absolute top-0 right-0'>
                     <button className='btn-primary text-sm rounded-br-none rounded-tl-none border-none'>

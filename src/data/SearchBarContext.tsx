@@ -1,11 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import useAgencijeHomepageFetch from "../hooks/useAgencijeHomepageFetch";
 import { SearchBarContextType, SearchBarFetchType, SearchBarGenericOption } from "./SearchBarTypes";
 import { AgencijaHomepage } from "./Agencija";
-import { Destinacija } from "./Destinacija";
+import { DestinacijaSB } from "./Destinacija";
+import useDestinacijaSBFetch from "../hooks/useDestinacijaSBFetch";
 
 export const AgencijaHomepageContext = createContext<SearchBarContextType<AgencijaHomepage> | null>(null);
-export const DestinacijaContext = createContext<SearchBarContextType<Destinacija> | null>(null);
+export const DestinacijaContext = createContext<SearchBarContextType<DestinacijaSB> | null>(null);
 
 
 export function getSearchBarContext<T>(searchBarType: SearchBarGenericOption): React.Context<SearchBarContextType<T> | null>{
@@ -17,7 +18,7 @@ export function getSearchBarContext<T>(searchBarType: SearchBarGenericOption): R
     }
 }
 
-export function SearchBarProvider<T>({ children, searchBarType}: any){
+export function SearchBarProvider<T>({ children, searchBarType, destID}: any){
     
     let searchBarFetch: SearchBarFetchType<T>;
     switch (searchBarType) {
@@ -25,8 +26,7 @@ export function SearchBarProvider<T>({ children, searchBarType}: any){
             searchBarFetch = useAgencijeHomepageFetch() as SearchBarFetchType<T>;
             break;
         case 'Destinacija':
-            // TODO: assign searchBarFetchType<Destinacija> type to searchBarFetch
-            searchBarFetch = useAgencijeHomepageFetch() as SearchBarFetchType<T>;
+            searchBarFetch = useDestinacijaSBFetch(destID) as SearchBarFetchType<T>;
             break;
         default:
             return null;
@@ -35,12 +35,13 @@ export function SearchBarProvider<T>({ children, searchBarType}: any){
     const {data, error, isPending} = searchBarFetch;
 
     const [filteredData, setFilteredData] = useState(data);
-    const [filterActive, setFilterActive] = useState(false);
+    
+    const filterActive = useMemo(() => {
+        return filteredData != data;
+    }, [filteredData, data]);
 
     useEffect(() => {
-        if(!filterActive){
-            setFilteredData(data);
-        }
+        setFilteredData(data);
     }, [data]);
 
     const SBProvider = getSearchBarContext<T>(searchBarType).Provider;
@@ -53,8 +54,7 @@ export function SearchBarProvider<T>({ children, searchBarType}: any){
                 setFilteredData,
                 error,
                 isPending,
-                filterActive,
-                setFilterActive
+                filterActive
             }}
         >
             { children }

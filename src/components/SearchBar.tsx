@@ -6,6 +6,7 @@ import search_icon from '../assets/icons/search-icon-secondary.svg'
 import x_icon from '../assets/icons/x-icon-secondary.svg'
 import search_icon_active from '../assets/icons/search-icon-primary.svg'
 import x_icon_active from '../assets/icons/x-icon-primary.svg'
+import Dropdown from "./Dropdown";
 
 type SearchBarProps<T> = {
     searchBarType: SearchBarGenericOption
@@ -15,15 +16,25 @@ type SearchBarProps<T> = {
 
         // properties on object for which seperate select dropdowns will be created
         // { property: array of possible values }
-        selectFields: {[key:string]: string[]}[] 
+        selectFields: [string, string[]][]
     },
     placeholder: string
 }
 
 function SearchBar<T>({options, searchBarType, placeholder}: SearchBarProps<T>){
-    const {data, setFilteredData, setFilterActive} 
+    const {data, filteredData, setFilteredData} 
         = useContext(getSearchBarContext<T>(searchBarType)) as SearchBarContextType<T>;
     const [searchQuery, setSearchQuery] = useState("");
+
+    const [selectState, setSelectState] = useState<{[key:string]: string}>(
+        Object.fromEntries(Object.keys(options.selectFields).map(k => [k, ""]))
+    );
+
+    const setSelectField = (field: string, value: string) => {
+        setSelectState({...selectState, [field]: value});
+    }
+
+    const [fuseResult, setFuseResult] = useState<Fuse.FuseResult<T>[] | null>(null);
 
     // doesn't work when defined with useMemo or useSate...
     // const fuse = useMemo(() => {
@@ -38,11 +49,22 @@ function SearchBar<T>({options, searchBarType, placeholder}: SearchBarProps<T>){
     //     }
     // }, [data])
 
+    const applySelectFilters = useCallback((data: T[]|null) => {
+        if(!data) return null;
+        return data.filter((fr) => {
+            for(const [key, value] of Object.entries(selectState)){
+                if(value != "" && (fr as Record<string,any>)[key] != value)
+                    return false;
+            }
+            return true;
+        })
+    }, [selectState]);
+
     const handleSearch = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(searchQuery == ""){
-            setFilteredData(data);
-            setFilterActive(false);
+            setFuseResult(null);
+            setFilteredData(applySelectFilters(data));
             return;
         }
         if(data){
@@ -56,48 +78,73 @@ function SearchBar<T>({options, searchBarType, placeholder}: SearchBarProps<T>){
                 threshold: 0.33
             });
             const fuseResult = fuse.search(searchQuery.trim());
-            setFilteredData(fuseResult.map((fr) => fr.item));
-            setFilterActive(true);
+            setFuseResult(fuseResult);
         }
-    }, [searchQuery]);
+    }, [searchQuery, data, selectState]);
+
+    useEffect(() => {
+        if(fuseResult){
+            const fuseResultData = applySelectFilters(fuseResult.map((fr) => fr.item));
+            setFilteredData(fuseResultData);
+        } else {
+            setFilteredData(applySelectFilters(data));
+        }
+    }, [selectState, fuseResult])
 
     const clearInput = () => {
         setSearchQuery("");
+        setSelectState(Object.fromEntries(Object.keys(options.selectFields).map(k => [k, ""])));
+        setFuseResult(null);
         setFilteredData(data);
-        setFilterActive(false);
     }
 
     return ( 
         <form id="search-bar" onSubmit={handleSearch}
-            className="w-full pb-8 xs:px-4 sm:p-8 lg:px-16 xl:px-24 flex justify-end placeholder:text-secondary-400"
+            className="w-full pb-8 xs:px-4 sm:p-4 lg:px-16 xl:px-24 flex flex-col items-center lg:flex-row justify-start"
         >
-            <input 
-                type="search" name="search-query" 
-                placeholder={placeholder}
-                value={searchQuery} 
-                onChange={(e) => setSearchQuery(e.target.value)} 
-                className="
-                    outline-none
-                    w-full p-2 text-lg
-                    border border-r-0 border-secondary-600 
-                    rounded-xl rounded-r-none 
-                    focus:border-primary-500
-                    focus:border-2 focus:border-r-0
-                    peer
-                    "
-            />
-            <button type="reset" onClick={clearInput} className="border border-x-0 border-secondary-600
-                peer-focus:border-primary-500 peer-focus:border-y-2">
-                <img src={x_icon} alt="Search" className="text-secondary-600"
-                    onMouseOver={e => e.currentTarget.src = x_icon_active}
-                    onMouseOut={e => e.currentTarget.src = x_icon} />
-            </button>
-            <button type="submit" className="border border-l-0 border-secondary-600 rounded-r-xl
-                peer-focus:border-primary-500 peer-focus:border-y-2 peer-focus:border-r-2">
-                <img src={search_icon} alt="Search" className="text-secondary-600"
-                    onMouseOver={e => e.currentTarget.src = search_icon_active}
-                    onMouseOut={e => e.currentTarget.src = search_icon} />
-            </button>
+            <div id="searchbar" className="flex justify-end w-full">
+                <input 
+                    type="search" name="search-query" 
+                    placeholder={placeholder}
+                    value={searchQuery} 
+                    onChange={(e) => setSearchQuery(e.target.value)} 
+                    className="
+                        outline-none
+                        w-full p-2 text-lg
+                        border border-r-0 border-secondary-600 
+                        rounded-xl rounded-r-none 
+                        focus:border-primary-500
+                        focus:border-2 focus:border-r-0
+                        peer
+                        placeholder:text-secondary-400
+                        "
+                />
+                <button type="reset" onClick={clearInput} className="border border-x-0 border-secondary-600
+                    peer-focus:border-primary-500 peer-focus:border-y-2">
+                    <img src={x_icon} alt="Search" className="text-secondary-600"
+                        onMouseOver={e => e.currentTarget.src = x_icon_active}
+                        onMouseOut={e => e.currentTarget.src = x_icon} />
+                </button>
+                <button type="submit" className="border border-l-0 border-secondary-600 rounded-r-xl
+                    peer-focus:border-primary-500 peer-focus:border-y-2 peer-focus:border-r-2">
+                    <img src={search_icon} alt="Search" className="text-secondary-600"
+                        onMouseOver={e => e.currentTarget.src = search_icon_active}
+                        onMouseOut={e => e.currentTarget.src = search_icon} />
+                </button>
+            </div>
+            <div id="selects" className="flex flex-col items-center xs:flex-row justify-around mt-2 lg:ml-4">
+                {
+                    options.selectFields.map(([field, values]) => (
+                        <Dropdown
+                            key={field}
+                            name={field}
+                            options={values}
+                            value={selectState[field]}
+                            setValue={(value) => setSelectField(field, value)}
+                        />
+                    ))
+                }
+            </div>
         </form>
     );
 }

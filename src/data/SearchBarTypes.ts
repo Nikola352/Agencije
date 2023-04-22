@@ -5,7 +5,6 @@ export type SearchBarContextType<T> = {
     error: string | null;
     isPending: boolean;
     filterActive: boolean;
-    setFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type SearchBarFetchType<T> = {

@@ -14,8 +14,10 @@ export default {
                 700: "#FA5521"
             } ,
             secondary:{
+                200: "#B1B1B2",
                 400: "#616163",
-                600: "#3A3A3B"
+                600: "#3A3A3B",
+                800: "#1F1F20"
             },
             backdrop: "#3A3A3B88",
             accent: "#5ADBFF",

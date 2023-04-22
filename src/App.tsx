@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Navbar from './layouts/Navbar'
 import { UserProvider } from './data/UserContext'
 import NotFound from './pages/NotFound'
+import AgencijaPage from './pages/AgencijaPage'
 
 function App() {
   return (
@@ -13,12 +14,13 @@ function App() {
 
                 <div className='h-10 sm:h-12 mb-4'></div>
 
-                <div className="content p-4 -z-10">
+                <main className="content p-4 -z-10 text-secondary-800">
                     <Routes>
-                        <Route path='/' element={Home()} />
-                        <Route path='*' element={NotFound()} />
+                        <Route path='/' element={<Home/>} />
+                        <Route path='/agencija/:id' element={<AgencijaPage/>} />
+                        <Route path='*' element={<NotFound/>} />
                     </Routes>
-                </div>
+                </main>
 
             </div>
         </UserProvider>
