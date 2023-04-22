@@ -17,6 +17,9 @@
             hover:shadow-secondary-600 hover:scale-[103%];
     }
     
+}
+
+@layer utilities {
     .clickable-shadow{
         @apply shadow-black [text-shadow:_0_1px_0_var(--tw-shadow-color)] hover:[text-shadow:_0_2px_0_var(--tw-shadow-color)];
     }
@@ -26,6 +29,7 @@
             after:absolute after:bottom-[-0.4em] after:left-0 after:right-0 after:h-[0.25em] after:bg-primary-500
             before:absolute before:bottom-0 before:w-[1.2em] before:right-[-0.95em] before:h-[0.25em] before:bg-primary-500 before:-rotate-45
     }
+    
 }
 
 
