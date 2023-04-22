@@ -32,7 +32,14 @@ const AgencijaCard = ({agencija}: AgencijaCardProps) => {
                         
                     </button>
                 </PopoverTrigger>
-                <PopoverContent>
+                <PopoverContent
+                    animationOptions={{
+                        initial: { rotate: -45, scale: 0},
+                        animate: {rotate: 0, scale: 1},
+                        transition: {type: "spring", duration: 0.3},
+                        exit: { rotate: -45, scale: 0}
+                    }}
+                >
                     <div className='p-4 pr-12 bg-secondary-600 rounded-lg'>
                         <ul>
                             {agencija.destinacijeList.map(([id, dest], idx) => {

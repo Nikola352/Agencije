@@ -15,7 +15,7 @@ import {
     FloatingFocusManager,
     useId
 } from "@floating-ui/react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion";
 
 interface PopoverOptions {
     initialOpen?: boolean;
@@ -159,8 +159,8 @@ export const PopoverTrigger = React.forwardRef<
 
 export const PopoverContent = React.forwardRef<
     HTMLDivElement,
-    React.HTMLProps<HTMLDivElement>
->(function PopoverContent(props, propRef) {
+    React.HTMLProps<HTMLDivElement> & {animationOptions: HTMLMotionProps<"div">}
+>(function PopoverContent({animationOptions: animationProps, ...props}, propRef) {
     const { context: floatingContext, ...context } = usePopoverContext();
     const ref = useMergeRefs([context.refs.setFloating, propRef]);
 
@@ -181,12 +181,7 @@ export const PopoverContent = React.forwardRef<
                             aria-labelledby={context.labelId}
                             aria-describedby={context.descriptionId}
                             {...context.getFloatingProps(props)}
-
-
-                            initial={{ rotate: -45, scale: 0}}
-                            animate={{rotate: 0, scale: 1}}
-                            transition={{type: "spring", duration: 0.5}}
-                            exit={{ rotate: -45, scale: 0}}
+                            {...animationProps}
                             >
                             {props.children}
                         </motion.div>
