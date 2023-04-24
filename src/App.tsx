@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound'
 import AgencijaPage from './pages/AgencijaPage'
 import Footer from './layouts/Footer'
 import Admin from './pages/Admin'
+import AgencijaEdit from './pages/AgencijaEdit'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                         <Route path='/' element={<Home/>} />
                         <Route path='/admin' element={<Admin/>} />
                         <Route path='/agencija/:id' element={<AgencijaPage/>} />
+                        <Route path='/agencija/:id/edit' element={<AgencijaEdit/>} />
                         <Route path='*' element={<NotFound/>} />
                     </Routes>
                 </main>

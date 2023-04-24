@@ -50,7 +50,15 @@ function useForm(
         return valid;
     }
 
-    return {fieldValues, errors, setFieldValue, setError, validate, clearForm, clearErrors};
+    return {fieldValues,
+        errors, 
+        setFieldValue, 
+        setError, 
+        validate, 
+        clearForm, 
+        clearErrors,
+        setFieldValues
+    };
 }
 
 export default useForm;

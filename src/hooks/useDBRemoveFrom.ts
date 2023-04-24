@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { set, ref } from "firebase/database";
 
@@ -12,7 +12,7 @@ const useDBRemoveFrom = <T>(dbpath: string): DBRemoveFromReturn<T> => {
     const [isPending, setIsPending] = useState(false);
     const [error, setError] = useState<string|null>(null);
     
-    const remove = async (key: string) => {
+    let remove = async (key: string) => {
         setIsPending(true);
         try{
             await set(ref(db, `${dbpath}/${key}`), null);
@@ -22,6 +22,19 @@ const useDBRemoveFrom = <T>(dbpath: string): DBRemoveFromReturn<T> => {
             setIsPending(false);
         }
     }
+
+    useEffect(() => {
+        remove = async (key: string) => {
+            setIsPending(true);
+            try{
+                await set(ref(db, `${dbpath}/${key}`), null);
+            } catch(err){
+                setError((err as Error).message);
+            } finally{
+                setIsPending(false);
+            }
+        }
+    }, [dbpath]);
 
     return { remove, isPending, error }
 }
