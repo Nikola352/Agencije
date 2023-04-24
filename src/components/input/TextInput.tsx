@@ -5,7 +5,7 @@ type TextInputProps = {
     name?: string | undefined,
     error?: string | null,
     required?: boolean,
-    type?: "text" | "password" | "email" | "number" | "tel" | "url"
+    type?: "text" | "password" | "email" | "number" | "tel" | "url" | "date" | "time" | "datetime-local" | "month" | "week" | "search" | "color" | "range" | "file" | "image" | "submit" | "reset" | "button" | undefined,
     // for number type:
     min?: number,
     max?: number,

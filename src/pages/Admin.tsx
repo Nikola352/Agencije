@@ -11,6 +11,7 @@ import delete_icon from "../assets/icons/delete-icon-white.svg";
 import delete_icon_active from "../assets/icons/delete-icon-error.svg";
 import edit_icon from "../assets/icons/edit-icon-white.svg";
 import edit_icon_active from "../assets/icons/edit-icon-accent.svg";
+import UserEdit from "../layouts/UserEdit";
 
 const Admin = () => {
     const { data: users, error: uErr, isPending: uPending } = useDBFetch<{[key:string]: User}>('korisnici');
@@ -93,19 +94,11 @@ const Admin = () => {
                     {
                         users && Object.keys(users).map((key) => {
                             return isPresentUser[key] && (
-                                <li key={key} className="m-2 px-4 flex justify-end items-center bg-primary-300 rounded-lg">
+                                <li key={key} className="m-2 px-4 py-1 flex justify-end items-center bg-primary-300 rounded-lg">
                                     <Link to={`/korisnik/${key}`} className="mr-auto ml-4 text-white text-2xl font-bold clickable-shadow">
                                         {users[key].korisnickoIme}
                                     </Link>
-                                    <Link to={`/korisnik/${key}/edit`}>
-                                        <button className="ml-2 p-2">
-                                        <img src={edit_icon} alt="obriši"
-                                            className="w-10 h-10"
-                                            onMouseOver={e => e.currentTarget.src = edit_icon_active}
-                                            onMouseOut={e => e.currentTarget.src = edit_icon}
-                                        />
-                                        </button>
-                                    </Link>
+                                    <UserEdit id={key}/>
                                     <button
                                         onClick={() => {setDeleteUserDialogOpen(true); setCurrentUserToDelete(key)}}
                                     >
@@ -152,13 +145,13 @@ const Admin = () => {
                     {
                         agencije && Object.keys(agencije).map((key) => {
                             return isPresentAgencija[key] && (
-                                <li key={key} className="m-2 px-4 flex justify-end items-center bg-primary-300 rounded-lg">
+                                <li key={key} className="m-2 px-4 py-1 flex justify-end items-center bg-primary-300 rounded-lg">
                                     <Link to={`/agencija/${key}`} className="mr-auto ml-4 text-white text-2xl font-bold clickable-shadow">
                                         {agencije[key].naziv}
                                     </Link>
                                     <Link to={`/agencija/${key}/edit`}>
-                                        <button className="ml-2 p-2">
-                                        <img src={edit_icon} alt="obriši" 
+                                        <button className="ml-2">
+                                        <img src={edit_icon} alt="izmeni" 
                                             className="w-10 h-10"
                                             onMouseOver={e => e.currentTarget.src = edit_icon_active}
                                             onMouseOut={e => e.currentTarget.src = edit_icon} 
