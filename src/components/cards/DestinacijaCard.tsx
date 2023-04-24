@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { DestinacijaSB } from "../data/Destinacija";
+import { DestinacijaSB } from "../../data/Destinacija";
 
 type DestinacijaProps = {
     dest: DestinacijaSB;

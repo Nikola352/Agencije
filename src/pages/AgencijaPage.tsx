@@ -4,8 +4,8 @@ import useDBFetch from "../hooks/useDBFetch";
 import Slider from "../components/Slider";
 import { Agencija } from '../data/Agencija';
 import { DestinacijaSB } from "../data/Destinacija";
-import DestinacijaCard from "../components/DestinacijaCard";
-import SearchBar from "../components/SearchBar";
+import DestinacijaCard from "../components/cards/DestinacijaCard";
+import SearchBar from "../components/input/SearchBar";
 import { DestinacijaContext, SearchBarProvider } from "../data/SearchBarContext";
 import { SearchBarContextType } from "../data/SearchBarTypes";
 

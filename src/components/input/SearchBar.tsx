@@ -1,12 +1,12 @@
 import Fuse from "fuse.js";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { SearchBarContextType, SearchBarGenericOption } from "../data/SearchBarTypes";
-import { getSearchBarContext } from "../data/SearchBarContext";
-import search_icon from '../assets/icons/search-icon-secondary.svg'
-import x_icon from '../assets/icons/x-icon-secondary.svg'
-import search_icon_active from '../assets/icons/search-icon-primary.svg'
-import x_icon_active from '../assets/icons/x-icon-primary.svg'
-import Dropdown from "./Dropdown";
+import { SearchBarContextType, SearchBarGenericOption } from "../../data/SearchBarTypes";
+import { getSearchBarContext } from "../../data/SearchBarContext";
+import search_icon from '../../assets/icons/search-icon-secondary.svg'
+import x_icon from '../../assets/icons/x-icon-secondary.svg'
+import search_icon_active from '../../assets/icons/search-icon-primary.svg'
+import x_icon_active from '../../assets/icons/x-icon-primary.svg'
+import Dropdown from "../floating/Dropdown";
 
 type SearchBarProps<T> = {
     searchBarType: SearchBarGenericOption

@@ -1,6 +1,6 @@
-import { Dialog, DialogContent, DialogTrigger } from "../components/Dialog";
+import { Dialog, DialogContent, DialogTrigger } from "../components/floating/Dialog";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import TextInput from "../components/TextInput";
+import TextInput from "../components/input/TextInput";
 import useForm from "../hooks/useForm";
 import { UserContext, UserContextType } from "../data/UserContext";
 import loader_icon from "../assets/icons/loader-icon.svg";

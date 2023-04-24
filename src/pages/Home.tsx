@@ -1,10 +1,10 @@
-import AgencijaCard from '../components/AgencijaCard';
+import AgencijaCard from '../components/cards/AgencijaCard';
 import useRenderOnScreenSize from "../hooks/useRenderOnScreenSize";
 import { useContext } from 'react';
 import { SearchBarContextType } from '../data/SearchBarTypes';
 import { AgencijaHomepage } from '../data/Agencija';
 import { SearchBarProvider, AgencijaHomepageContext } from '../data/SearchBarContext';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/input/SearchBar';
 
 const HomeChild = () => {
     const { filteredData: agencije, error, isPending, filterActive } = useContext(AgencijaHomepageContext) as SearchBarContextType<AgencijaHomepage>;

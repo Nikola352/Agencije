@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { AgencijaHomepage } from '../data/Agencija';
-import { Popover, PopoverContent, PopoverTrigger } from './Popover';
+import { AgencijaHomepage } from '../../data/Agencija';
+import { Popover, PopoverContent, PopoverTrigger } from '../floating/Popover';
 
 type AgencijaCardProps = {
     agencija: AgencijaHomepage

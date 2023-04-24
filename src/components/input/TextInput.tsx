@@ -5,11 +5,13 @@ type TextInputProps = {
     name?: string | undefined,
     error?: string | null,
     required?: boolean,
-    type?: "text" | "password" | "email",
-
+    type?: "text" | "password" | "email" | "number" | "tel" | "url"
+    // for number type:
+    min?: number,
+    max?: number,
 }
 
-const TextInput = ({value, setValue, label, name, error=null, required=false, type="text"}: TextInputProps) => {
+const TextInput = ({value, setValue, label, name, error=null, required=false, type="text", min, max}: TextInputProps) => {
     return ( 
         <div className="text-input relative m-6">
             <input 
@@ -18,6 +20,7 @@ const TextInput = ({value, setValue, label, name, error=null, required=false, ty
                 placeholder={label}
                 value={value} 
                 onChange={(e) => setValue(e.target.value)} 
+                min={min} max={max}
                 className={`text-secondary-600 h-10 text-lg
                     focus:outline-none focus:border-primary-500 border-b-2
                     peer placeholder:text-transparent

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import down_arrow from "../assets/icons/down-arrow.svg";
-import up_arrow from "../assets/icons/up_arrow.svg";
+import down_arrow from "../../assets/icons/down-arrow.svg";
+import up_arrow from "../../assets/icons/up_arrow.svg";
 import { Popover, PopoverContent, PopoverTrigger } from "./Popover";
 
 type DropdownProps = {

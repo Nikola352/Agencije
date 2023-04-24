@@ -4,8 +4,8 @@ import { User } from "../data/User";
 import useDBFetch from "../hooks/useDBFetch";
 import { useEffect, useState } from "react";
 import useDBRemoveFrom from "../hooks/useDBRemoveFrom";
-import { Dialog } from "../components/Dialog";
-import { DialogContent } from "../components/Dialog";
+import { Dialog } from "../components/floating/Dialog";
+import { DialogContent } from "../components/floating/Dialog";
 
 import delete_icon from "../assets/icons/delete-icon-white.svg";
 import delete_icon_active from "../assets/icons/delete-icon-error.svg";
