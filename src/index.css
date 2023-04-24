@@ -11,6 +11,10 @@
     .btn-primary{
         @apply btn [&:not(:active)]:bg-gradient-to-tr from-primary-500 via-primary-500 active:bg-primary-700;
     }
+
+    .btn-error{
+        @apply btn [&:not(:active)]:bg-gradient-to-tr from-error via-error hover:to-error;
+    }
     
     .card{
         @apply relative w-full h-full overflow-hidden rounded-lg shadow-sm hover:shadow-lg shadow-black 

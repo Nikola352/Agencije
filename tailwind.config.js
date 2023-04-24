@@ -22,7 +22,7 @@ export default {
             backdrop: "#3A3A3B88",
             accent: "#5ADBFF",
             success: "#7FB069",
-            error: "#FF5A5F"
+            error: "#FF3A3F"
         },
         screens: {
             'xs': '450px'

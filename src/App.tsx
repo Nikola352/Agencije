@@ -19,6 +19,7 @@ function App() {
                 <main className="content p-4 pb-16 sm:pb-20 -z-10 text-secondary-800">
                     <Routes>
                         <Route path='/' element={<Home/>} />
+                        <Route path='/admin' element={<Admin/>} />
                         <Route path='/agencija/:id' element={<AgencijaPage/>} />
                         <Route path='*' element={<NotFound/>} />
                     </Routes>
