@@ -67,6 +67,10 @@ const DestinacijaPage = () => {
                                 </p>
                                 <p className='text-lg text-center bg-primary-500 text-white rounded-lg m-4'>{destinacija.tip}</p>
                                 <p className='text-lg text-center bg-primary-500 text-white rounded-lg m-4'>{destinacija.prevoz}</p>
+                                <p className='text-lg text-center mb-2'>
+                                    <span>maksimalno osoba:</span>
+                                    <strong className='text-2xl mx-1 text-primary-500'>{destinacija.maxOsoba}</strong>
+                                </p>
                             </section>
                             <span>
                                 {destinacija.opis}
