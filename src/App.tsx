@@ -7,6 +7,7 @@ import AgencijaPage from './pages/AgencijaPage'
 import Footer from './layouts/Footer'
 import Admin from './pages/Admin'
 import AgencijaEdit from './pages/AgencijaEdit'
+import DestinacijaPage from './pages/DestinacijaPage'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                         <Route path='/admin' element={<Admin/>} />
                         <Route path='/agencija/:id' element={<AgencijaPage/>} />
                         <Route path='/agencija/:id/edit' element={<AgencijaEdit/>} />
+                        <Route path='/destinacija/:id1/:id2' element={<DestinacijaPage />} />
                         <Route path='*' element={<NotFound/>} />
                     </Routes>
                 </main>

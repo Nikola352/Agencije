@@ -1,7 +1,7 @@
 import React, { ReactNode, useRef } from "react";
-import left_arrow from "../assets/icons/left-arrow.svg";
-import right_arrow from "../assets/icons/right-arrow.svg";
-import useRenderOnScreenSize from "../hooks/useRenderOnScreenSize";
+import left_arrow from "../../assets/icons/left-arrow.svg";
+import right_arrow from "../../assets/icons/right-arrow.svg";
+import useRenderOnScreenSize from "../../hooks/useRenderOnScreenSize";
 
 const Slider: React.FC<{children: ReactNode}> = ({children}: any) => {
     const slider = useRef<HTMLDivElement>(null);
@@ -19,12 +19,12 @@ const Slider: React.FC<{children: ReactNode}> = ({children}: any) => {
     return ( 
         <div id="slider" className="h-80 relative">
             {smScreen && 
-                <button className="absolute left-2 top-[45%] z-10 rounded-full bg-primary-500 opacity-70 hover:opacity-100 active:bg-primary-700" onClick={slideLeft}>
+                <button className="absolute left-2 top-[45%] z-[1] rounded-full bg-primary-500 opacity-70 hover:opacity-100 active:bg-primary-700" onClick={slideLeft}>
                     <img src={left_arrow} alt="left" />
                 </button>
             }
             {smScreen && 
-                <button className="absolute right-2 top-[45%] z-10 rounded-full bg-primary-500 opacity-70 hover:opacity-100 active:bg-primary-700" onClick={slideRight}>
+                <button className="absolute right-2 top-[45%] z-[1] rounded-full bg-primary-500 opacity-70 hover:opacity-100 active:bg-primary-700" onClick={slideRight}>
                     <img src={right_arrow} alt="right" />
                 </button>
             }

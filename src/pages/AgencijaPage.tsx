@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import useDBFetch from "../hooks/useDBFetch";
-import Slider from "../components/Slider";
+import Slider from "../components/sliders/Slider";
 import { Agencija } from '../data/Agencija';
 import { DestinacijaSB } from "../data/Destinacija";
 import DestinacijaCard from "../components/cards/DestinacijaCard";
