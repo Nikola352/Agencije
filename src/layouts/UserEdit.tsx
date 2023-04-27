@@ -105,10 +105,12 @@ const UserEdit = ({id}: {id: string}) => {
                 />
             </DialogTrigger>
             <DialogContent>
-                <form onSubmit={handleSubmit} className="bg-white rounded-lg p-4">
-                    <h1 className="text-2xl font-semibold mb-4 fancy-underline mx-auto">Izmena korisnika</h1>
+                <form onSubmit={handleSubmit} className="bg-white rounded-lg p-4 h-96 sm:h-full overflow-auto">
+                    <div className="text-center">
+                        <h1 className="text-2xl font-semibold mb-4 fancy-underline mx-auto">Izmena korisnika</h1>
+                    </div>
 
-                    <div className="flex justify-around">
+                    <div className="flex justify-start flex-col sm:justify-around sm:flex-row">
                         <div className="left">
                             <TextInput
                                 value={fieldValues["korisnickoIme"]}
@@ -175,7 +177,7 @@ const UserEdit = ({id}: {id: string}) => {
                     </div>
 
                     <div className="flex justify-around items-center mt-4">
-                        <input type="reset" value="Resetuj" className="btn text-secondary-600 hover:text-white"/>
+                        <input type="reset" value="Resetuj" onClick={clearForm} className="btn text-secondary-600 hover:text-white"/>
                         <input type="submit" value="Sačuvaj" className="btn-primary" />
                     </div>
 
