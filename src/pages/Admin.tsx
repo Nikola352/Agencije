@@ -80,7 +80,9 @@ const Admin = () => {
 
     return ( 
         <div>
-            <h1 className="text-3xl fancy-underline font-semibold mb-8">Admin panel</h1>
+            <div className="text-center">
+                <h1 className="text-3xl fancy-underline font-semibold mb-8">Admin panel</h1>
+            </div>
 
             <button 
                 className="w-full text-2xl btn-primary my-4"

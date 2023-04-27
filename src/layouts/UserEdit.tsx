@@ -106,7 +106,11 @@ const UserEdit = ({id}: {id: string}) => {
             </DialogTrigger>
             <DialogContent>
                 <form onSubmit={handleSubmit} className="bg-white rounded-lg p-4">
-                    <h1 className="text-2xl font-semibold mb-4 fancy-underline mx-auto">Izmena korisnika</h1>
+                    <div className="text-center">
+                        <h1 className="text-2xl font-semibold mb-4 fancy-underline mx-auto">
+                            Izmena korisnika
+                        </h1>
+                    </div>
 
                     <div className="flex justify-around">
                         <div className="left">

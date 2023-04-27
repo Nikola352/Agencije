@@ -137,7 +137,9 @@ const AgencijaEdit = () => {
 
     return ( 
         <div id="agencija-edit">
-            <h1 className="text-2xl font-bold mb-6 fancy-underline">Izmena agencije</h1>
+            <div className="text-center">
+                <h1 className="text-2xl font-bold mb-6 fancy-underline">Izmena agencije</h1>
+            </div>
                 
             <div className="flex justify-around flex-wrap">
                 <form id="osnovni-podaci" onSubmit={handleSubmit} className="card inline-block w-auto m-4">
