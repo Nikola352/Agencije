@@ -208,7 +208,7 @@ const AgencijaEdit = () => {
                     />
                 </form>
 
-                <div id="destinacija" className="relative h-full overflow-hidden rounded-lg shadow-sm shadow-black w-auto inline-block p-4 text-xl m-4 w-full">
+                <div id="destinacija" className="relative h-full overflow-hidden rounded-lg shadow-sm shadow-black inline-block p-4 text-xl m-4 w-full">
                     <h2 className="mb-2 text-xl fancy-underline">Destinacije</h2>
                     {destError && <p>Došlo je do greške pri učitavanju destinacija.</p>}
                     {destPending && <p>Učitavanje destinacija...</p>}
