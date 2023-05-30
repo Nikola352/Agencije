@@ -136,13 +136,13 @@ const AgencijaEdit = () => {
     }
 
     return ( 
-        <div id="agencija-edit">
-            <div className="text-center">
+        <div id="agencija-edit" className="w-11/12 mx-auto">
+            <div className="my-4">
                 <h1 className="text-2xl font-bold mb-6 fancy-underline">Izmena agencije</h1>
             </div>
                 
             <div className="flex justify-around flex-wrap">
-                <form id="osnovni-podaci" onSubmit={handleSubmit} className="card inline-block w-auto m-4">
+                <form id="osnovni-podaci" onSubmit={handleSubmit} className="relative h-full overflow-hidden rounded-lg shadow-sm shadow-black inline-block w-auto m-4 ml-0">
 
                     <h2 className="m-4 mb-2 text-xl fancy-underline">Osnovni podaci</h2>
 
@@ -193,15 +193,30 @@ const AgencijaEdit = () => {
 
                 </form>
 
-                <div id="destinacija" className="card w-auto inline-block p-4 text-xl m-4">
+                <form id="logo" onSubmit={logoSubmit} className="relative h-full overflow-hidden rounded-lg shadow-sm shadow-black w-96 lg:w-[34rem] inline-flex flex-col items-center m-4">
+                    <img src={logoSrc} alt="Odabrani url ne pokazuje na sliku." className="w-full object-cover" />
+                    <TextInput
+                        value={logo? logo : ""}
+                        setValue={(val: string) => setLogo(val)}
+                        label="url slike"
+                        type="url"
+                    />
+                    <input 
+                        type="submit" value="Sačuvaj" 
+                        className="btn-primary w-1/3 mb-4" 
+                        disabled={fetchPending || updatePending}
+                    />
+                </form>
+
+                <div id="destinacija" className="relative h-full overflow-hidden rounded-lg shadow-sm shadow-black w-auto inline-block p-4 text-xl m-4 w-full">
                     <h2 className="mb-2 text-xl fancy-underline">Destinacije</h2>
                     {destError && <p>Došlo je do greške pri učitavanju destinacija.</p>}
                     {destPending && <p>Učitavanje destinacija...</p>}
-                    <ul className="overflow-auto h-96">
+                    <ul className="overflow-auto h-96 w-full">
                         {
                             destinacije && Object.entries(destinacije).map(([key, dest]) => 
                                 isPresentDestinacija[key] && (
-                                <li key={key} className="flex justify-end items-center bg-primary-300 m-2 rounded-lg text-white px-2">
+                                <li key={key} className="flex justify-end items-center bg-primary-300 my-2 rounded-lg text-white px-2 w-full">
                                     <Link to={`/destinacija/${agencija!.destinacije}/${key}`} className="clickable-shadow font-semibold mr-auto">
                                         {dest.naziv}
                                     </Link>
@@ -229,21 +244,6 @@ const AgencijaEdit = () => {
                         }
                     </ul>
                 </div>
-
-                <form id="logo" onSubmit={logoSubmit} className="card w-96 inline-flex flex-col items-center m-4">
-                    <img src={logoSrc} alt="Odabrani url ne pokazuje na sliku." className="h-64 object-cover" />
-                    <TextInput
-                        value={logo? logo : ""}
-                        setValue={(val: string) => setLogo(val)}
-                        label="url slike"
-                        type="url"
-                    />
-                    <input 
-                        type="submit" value="Sačuvaj" 
-                        className="btn-primary w-1/3 mb-4" 
-                        disabled={fetchPending || updatePending}
-                    />
-                </form>
             </div>
             
             <Dialog open={deleteDestDialogOpen} onOpenChange={() => setDeleteDestDialogOpen(!deleteDestDialogOpen)}>
