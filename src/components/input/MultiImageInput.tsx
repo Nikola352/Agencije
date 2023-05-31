@@ -14,22 +14,23 @@ const MultiImageInput = ({urls, setUrls}: MultiImageInputProps) => {
         setUrlList(urls.split(',').map(s => s.trim()));
     }, [urls]);
 
-    const setUrl = useCallback((url: string, idx: number) => {
+    const setUrl = (url: string, idx: number) => {
+        console.log(1);
         const newList = [...urlList];
         newList[idx] = url;
-        setUrlList(newList);
         setUrls(newList.join(', '));
-    }, []);
+    };
 
-    const removeUrl = useCallback((idx: number) => {
-        setUrlList(urlList.filter((_, i) => i !== idx));
-        setUrls(urlList.filter((_, i) => i !== idx).join(', '));
+    const removeUrl = (idx: number) => {
+        const newList = urlList.filter((_, i) => i !== idx);
+        setUrls(newList.join(', '));
         setSelectedIdx(0);
-    }, [urlList]);
+    };
 
-    const addImage = useCallback(() => {
-        setUrlList([...urlList, ""]);
-        setUrls([...urlList, ""].join(', '));
+    const addImage = () => {
+        console.log(1);
+        const newList = [...urlList, ""]
+        setUrls([...newList].join(', '));
         setSelectedIdx(urlList.length);
 
         // set focus on new input
@@ -38,8 +39,7 @@ const MultiImageInput = ({urls, setUrls}: MultiImageInputProps) => {
             const lastInput = inputs[inputs.length - 1];
             lastInput.focus();
         } , 0);
-
-    }, [urlList]);
+    };
 
     return ( 
         <div className="w-full">
@@ -47,19 +47,19 @@ const MultiImageInput = ({urls, setUrls}: MultiImageInputProps) => {
                 <img src={urlList[selectedIdx]} alt="no image" className="object-cover w-96 h-72 lg:w-[34rem] lg:h-96 rounded-lg shadow-md bg-secondary-200" />
                 <ul className="max-h-96 w-80 overflow-y-scroll">
                     {urlList.map((url, idx) => (
-                        <li key={idx} className="flex flex-row" onMouseUp={() => setSelectedIdx(idx)}>
+                        <li key={idx} className="flex flex-row" onMouseDown={() => setSelectedIdx(idx)}>
                             <TextInput
                                 value={url}
                                 setValue={(val) => setUrl(val, idx)}
                                 type="url"
                                 />
-                            <button onClick={() => removeUrl(idx)}>X</button>
+                            <button type="button" onClick={() => removeUrl(idx)} className="text-error">X</button>
                         </li>
                     ))}
                 </ul>
             </div>
             <div>
-                <button onClick={addImage} className="btn-primary">Dodaj sliku</button>
+                <button type="button" onClick={addImage} className="btn-primary">Dodaj sliku</button>
             </div>
         </div>
     );
