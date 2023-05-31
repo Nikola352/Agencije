@@ -49,10 +49,52 @@ const AgencijaPageChild = ({agencija, isPending, error}: AgencijaPageChildProps)
             { error && <h3>Došlo je do greške pri učitavanju podataka.</h3>}
             <article id="agencija-info">
                 <h1 className="text-center mb-6">
-                    <span className="text-4xl xs:text-5xl font-bold fancy-underline">
+                    <span className="text-3xl xs:text-5xl font-bold fancy-underline">
                         { !isPending && agencija ? agencija.naziv : "Agencija" }
                     </span>
                 </h1>
+
+                <section id="basic-info" className="grid grid-rows-1 sm:grid-cols-2 gap-4 sm:gap-6 text-lg xs:text-xl font-bold xs:m-2 pt-6">
+
+                    <section className={basicInfoElStyles}>
+                        <img src={phone_icon} alt="telefon" className="h-8" />
+                        { !isPending && agencija ? (
+                            <strong className="font-bold">{agencija.brojTelefona}</strong>
+                        ) : (
+                            <TextLoader />
+                        )}
+                    </section>
+
+                    <section className={basicInfoElStyles}>
+                        <img src={location_icon} alt="lokacija" className="h-8" />
+                        { !isPending && agencija ? (
+                            <strong className="font-bold">{agencija.adresa}</strong>
+                        ) : (
+                            <TextLoader />
+                        )}
+                    </section>
+
+                    <section className={basicInfoElStyles}>
+                        <img src={mail_icon} alt="email" className="h-8" />
+                        { !isPending && agencija ? (
+                            <strong className="font-bold">{agencija.email}</strong>
+                        ) : (
+                            <TextLoader />
+                        )}
+                    </section>
+
+                    <section className={basicInfoElStyles}>
+                        <img src={calendar_icon} alt="lokacija" className="h-8" />
+                        { !isPending && agencija ? (
+                            <span>
+                                <span className="font-normal mx-1">osnovano</span>
+                                <strong className="font-bold">{ agencija.godina }</strong>
+                            </span>
+                        ) : (
+                            <TextLoader />
+                        )}
+                    </section>
+                </section>
 
                 <section className="destinacije mt-4 mb-8">
                     <div className="flex items-center justify-between m-2">
@@ -102,50 +144,6 @@ const AgencijaPageChild = ({agencija, isPending, error}: AgencijaPageChildProps)
                         <p className="text-center text-xl">Ne postoje destinacije u ponudi...</p>
                     ): "")}
                 </section>
-
-                <section id="basic-info" className="grid grid-rows-1 sm:grid-cols-2 gap-4 sm:gap-6 text-lg xs:text-xl font-bold xs:m-2 pt-6">
-
-                    <section className={basicInfoElStyles}>
-                        <img src={phone_icon} alt="telefon" className="h-8" />
-                        { !isPending && agencija ? (
-                            <strong className="font-bold">{agencija.brojTelefona}</strong>
-                        ) : (
-                            <TextLoader />
-                        )}
-                    </section>
-
-                    <section className={basicInfoElStyles}>
-                        <img src={location_icon} alt="lokacija" className="h-8" />
-                        { !isPending && agencija ? (
-                            <strong className="font-bold">{agencija.adresa}</strong>
-                        ) : (
-                            <TextLoader />
-                        )}
-                    </section>
-
-                    <section className={basicInfoElStyles}>
-                        <img src={mail_icon} alt="email" className="h-8" />
-                        { !isPending && agencija ? (
-                            <strong className="font-bold">{agencija.email}</strong>
-                        ) : (
-                            <TextLoader />
-                        )}
-                    </section>
-
-                    <section className={basicInfoElStyles}>
-                        <img src={calendar_icon} alt="lokacija" className="h-8" />
-                        { !isPending && agencija ? (
-                            <span>
-                                <span className="font-normal mx-1">osnovano</span>
-                                <strong className="font-bold">{ agencija.godina }</strong>
-                            </span>
-                        ) : (
-                            <TextLoader />
-                        )}
-                    </section>
-
-                </section>
-
 
             </article>
 

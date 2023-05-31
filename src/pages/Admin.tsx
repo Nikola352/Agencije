@@ -17,8 +17,7 @@ const Admin = () => {
     const { data: users, error: uErr, isPending: uPending } = useDBFetch<{[key:string]: User}>('korisnici');
     const { data: agencije, error: aErr, isPending: aPending } = useDBFetch<{[key:string]: Agencija}>('agencije');
 
-    const [showUsers, setShowUsers] = useState(false);
-    const [showAgencije, setShowAgencije] = useState(false);
+    const [showUsers, setShowUsers] = useState(true); // true - users, false - agencije
 
     const {remove: removeUser, isPending: removeUserPending, error: removeUserError} = useDBRemoveFrom('korisnici');
     const {remove: removeAgencija, isPending: removeAgencijaPending, error: removeAgencijaError} = useDBRemoveFrom('agencije');
@@ -80,23 +79,28 @@ const Admin = () => {
 
     return ( 
         <div>
-            <div className="text-center">
-                <h1 className="text-3xl fancy-underline font-semibold mb-8">Admin panel</h1>
+            <div className="flex justify-end flex-wrap">
+                <h1 className="text-3xl fancy-underline font-semibold mb-8 ml-4 mr-auto">Admin panel</h1>
+
+                <button 
+                    className="text-xl btn-primary m-4"
+                    onClick={() => setShowUsers(true)}
+                > Korisnici </button>
+
+                <button 
+                    className="text-xl btn-primary m-4"
+                    onClick={() => setShowUsers(false)}
+                > Agencije </button>
             </div>
 
-            <button 
-                className="w-full text-2xl btn-primary my-4"
-                onClick={() => setShowUsers(!showUsers)}
-            > Korisnici </button>
-
             {showUsers &&
-                <ul className="mb-6 text-xl max-h-96 overflow-auto">
+                <ul className="mb-6 text-xl">
                     {uPending && <div>Učitavanje korisnika...</div>}
                     {uErr && <div>Došlo je do greške pri učitavanju korisnika</div>}
                     {
                         users && Object.keys(users).map((key) => {
                             return isPresentUser[key] && (
-                                <li key={key} className="m-2 px-4 py-1 flex justify-end items-center bg-primary-300 rounded-lg">
+                                <li key={key} className="m-2 px-4 py-1 flex justify-end items-center bg-primary-300 rounded-lg md:w-1/2">
                                     <Link to={`/korisnik/${key}`} className="mr-auto ml-4 text-white text-2xl font-bold clickable-shadow">
                                         {users[key].korisnickoIme}
                                     </Link>
@@ -132,22 +136,15 @@ const Admin = () => {
                     </DialogContent>
                 </Dialog>
             )}
-                
-                                
 
-            <button 
-                className="w-full text-2xl btn-primary my-4"
-                onClick={() => setShowAgencije(!showAgencije)}
-            > Agencije </button>
-
-            {showAgencije &&
-                <ul className="mb-6 text-xl max-h-96 overflow-auto">
+            {!showUsers &&
+                <ul className="mb-6 text-xl">
                     {aPending && <div>Učitavanje agencija...</div>}
                     {aErr && <div>Došlo je do greške pri učitavanju agencija</div>}
                     {
                         agencije && Object.keys(agencije).map((key) => {
                             return isPresentAgencija[key] && (
-                                <li key={key} className="m-2 px-4 py-1 flex justify-end items-center bg-primary-300 rounded-lg">
+                                <li key={key} className="m-2 px-4 py-1 flex justify-end items-center bg-primary-300 rounded-lg  md:w-1/2">
                                     <Link to={`/agencija/${key}`} className="mr-auto ml-4 text-white text-2xl font-bold clickable-shadow">
                                         {agencije[key].naziv}
                                     </Link>
