@@ -137,7 +137,7 @@ const AgencijaEdit = () => {
 
     return ( 
         <div id="agencija-edit" className="w-11/12 mx-auto">
-            <div className="my-4">
+            <div className="my-4 text-center">
                 <h1 className="text-2xl font-bold mb-6 fancy-underline">Izmena agencije</h1>
             </div>
                 
@@ -212,6 +212,9 @@ const AgencijaEdit = () => {
                     <h2 className="mb-2 text-xl fancy-underline">Destinacije</h2>
                     {destError && <p>Došlo je do greške pri učitavanju destinacija.</p>}
                     {destPending && <p>Učitavanje destinacija...</p>}
+                    <button className="btn mb-4 ml-6 text-sm text-secondary-600 hover:text-white">
+                        <Link to={`/destinacija/${agencija?.destinacije}/new`}>Dodaj destinaciju</Link>
+                    </button>
                     <ul className="overflow-auto h-96 w-full">
                         {
                             destinacije && Object.entries(destinacije).map(([key, dest]) => 
