@@ -142,7 +142,7 @@ const AgencijaEdit = () => {
             </div>
                 
             <div className="flex justify-around flex-wrap">
-                <form id="osnovni-podaci" onSubmit={handleSubmit} className="relative h-full overflow-hidden rounded-lg shadow-sm shadow-black inline-block w-auto m-4 ml-0">
+                <form id="osnovni-podaci" onSubmit={handleSubmit} noValidate className="relative h-full overflow-hidden rounded-lg shadow-sm shadow-black inline-block w-auto m-4 ml-0">
 
                     <h2 className="m-4 mb-2 text-xl fancy-underline">Osnovni podaci</h2>
 
