@@ -49,8 +49,7 @@ const UserEdit = ({id}: {id: string}) => {
         ],
         datumRodjenja: [
             ["Obavezno polje", (val: string) => val !== ""],
-            // TODO: format datuma
-            // TODO: Datum ne sme biti u budućnosti
+            ["Datum rođenja ne sme biti u budućnosti", (val: string) => new Date(val) <= new Date()]
         ],
         telefon: [
             ["Obavezno polje", (val: string) => val !== ""],
