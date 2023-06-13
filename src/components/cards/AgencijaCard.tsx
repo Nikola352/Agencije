@@ -14,9 +14,10 @@ const AgencijaCard = ({agencija}: AgencijaCardProps) => {
             <Link to={`agencija/${agencija.id}`} className="">
                 <figure className='relative w-full h-full overflow-hidden'>
                     <img src={agencija.logo} alt="logo" className="relative h-full w-full object-cover" />
-                        <h2 className='absolute left-0 bottom-0 m-4 text-3xl sm:text-4xl font-bold text-white hover:text-primary-500 clickable-shadow'>
-                            {agencija.naziv}
-                        </h2>
+                        <h2 
+                            dangerouslySetInnerHTML={{ __html: agencija.naziv }}
+                            className='absolute left-0 bottom-0 m-4 text-3xl sm:text-4xl font-bold text-white hover:text-primary-500 clickable-shadow'
+                        ></h2>
                 </figure>
             </Link>            
             <Popover>

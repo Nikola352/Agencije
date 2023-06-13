@@ -49,6 +49,50 @@ function SearchBar<T>({options, searchBarType, placeholder}: SearchBarProps<T>){
     //     }
     // }, [data])
 
+    const markMatches = useCallback((data: T[]|null) => {
+        // change values inside data, so that matching substring is highlighted (xxxMatchxxx -> xxx<mark>Match</mark>xxx)
+        if(!data) return null;
+        if(fuseResult){
+            let newData = JSON.parse(JSON.stringify(data)) as T[];
+            newData = newData.map((d) => {
+                const dString = JSON.stringify(d);
+                for(const fr of fuseResult){
+                    if(JSON.stringify(fr.item) == dString){
+                        for(const match of fr.matches || []){
+                            let valueString = match.value;
+                            if(!valueString) continue;
+                            // split valueString into substrings, each of which is either a match or not
+                            // then join them with <mark> tags
+                            let substrings = [];
+                            let isMarked = []
+                            for(const [start, end] of match.indices || []){
+                                if(start == end) continue;
+                                substrings.push(valueString.substring(0, start));
+                                isMarked.push(false);
+                                substrings.push(valueString.substring(start, end+1));
+                                isMarked.push(true);
+                                valueString = valueString.substring(end+1);
+                            }
+                            substrings.push(valueString);
+                            isMarked.push(false);
+
+                            valueString = "";
+                            for(const substring of substrings){
+                                valueString += isMarked.shift() ? `<mark>${substring}</mark>` : substring;
+                            }
+                            if(match.key)
+                                (d as Record<string,any>)[match.key] = valueString;
+                        }
+                        break;
+                    }
+                }
+                return d;
+            });
+            return newData;
+        } 
+        return data;
+    }, [fuseResult]);
+    
     const applySelectFilters = useCallback((data: T[]|null) => {
         if(!data) return null;
         return data.filter((fr) => {
@@ -75,7 +119,7 @@ function SearchBar<T>({options, searchBarType, placeholder}: SearchBarProps<T>){
                 includeMatches: true, // ?
                 keys: options.searchFields,
                 ignoreLocation: true,
-                threshold: 0.33
+                threshold: 0
             });
             const fuseResult = fuse.search(searchQuery.trim());
             setFuseResult(fuseResult);
@@ -84,7 +128,8 @@ function SearchBar<T>({options, searchBarType, placeholder}: SearchBarProps<T>){
 
     useEffect(() => {
         if(fuseResult){
-            const fuseResultData = applySelectFilters(fuseResult.map((fr) => fr.item));
+            let fuseResultData = applySelectFilters(fuseResult.map((fr) => fr.item));
+            fuseResultData = markMatches(fuseResultData);
             setFilteredData(fuseResultData);
         } else {
             setFilteredData(applySelectFilters(data));
