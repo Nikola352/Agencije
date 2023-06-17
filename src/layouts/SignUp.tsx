@@ -90,11 +90,11 @@ const SignUp = ({open, setOpen, switchToLogIn, ...props}: SignupProps) => {
                         korisnickoIme: fieldValues["username"],
                         email: fieldValues["email"],
                         lozinka: fieldValues["password"],
-                        ime: "",
-                        prezime: "",
-                        adresa: "",
-                        datumRodjenja: "",
-                        telefon: ""
+                        ime: fieldValues["name"],
+                        prezime: fieldValues["lastname"],
+                        adresa: fieldValues["address"],
+                        datumRodjenja: fieldValues["birthDate"],
+                        telefon: fieldValues["phone"]
                     });
                     setSignupFinished(true);
                 }
